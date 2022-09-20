@@ -1,0 +1,74 @@
+<!-- <!DOCTYPE html> -->
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="rzp-button1">Pay</button>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        document.getElementById('rzp-button1').onclick = async function (e) {
+            console.log('hellow123')
+            e.preventDefault();
+            // let option= {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json;charset=utf-8'
+            //     },
+            //     body: JSON.stringify({
+            //         amount:500
+            //     })
+            // }
+            // let response = await fetch("http://localhost:7788/customer/generateorderID",option)
+            // let response = await fetch('http://localhost:7788/customer/razorpaypayment', {
+            //     method: 'POST',
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify({
+            //         amount: 500
+            //     })
+            // });
+            // let orderdata = await response.json();
+            // console.log(orderdata);
+
+            var options = {
+                "key": "rzp_test_naajBB4kEXIZin", // Enter the Key ID generated from the Dashboard
+                "amount": "500", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                "currency": "INR",
+                "order_id": orderdata.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response) {
+                    console.log(response);
+                    alert(response.razorpay_payment_id);
+                    alert(response.razorpay_order_id);
+                    alert(response.razorpay_signature)
+                },
+            };
+            var rzp1 = new Razorpay(options);
+            // console.log(response);
+            rzp1.open();
+
+        }
+//     let orderdata;
+//     (async()=>{})();
+
+// rzp1.on('payment.failed', function (response){
+//         alert(response.error.code);
+//         alert(response.error.description);
+//         alert(response.error.source);
+//         alert(response.error.step);
+//         alert(response.error.reason);
+//         alert(response.error.metadata.order_id);
+//         alert(response.error.metadata.payment_id);
+// });
+
+    </script>
+
+</body>
+
+</html>
